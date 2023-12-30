@@ -1,0 +1,9 @@
+---
+- name: Install pipx package
+  ansible.builtin.pip:
+    name: pipx
+    extra_args: --user
+
+- name: "Set ensurepath for Pipx"
+  shell:
+    cmd: "python3 -m pipx ensurepath"
