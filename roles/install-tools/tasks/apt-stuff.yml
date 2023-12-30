@@ -13,7 +13,7 @@
   package:
     name:
       - jq
-      - pipx
+      # - pipx # issue on parrot installing pipx with apt.  installed with pip
       - ntpdate
       - flameshot
       - exiftool

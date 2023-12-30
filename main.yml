@@ -16,6 +16,8 @@
             - streetsidesoftware.code-spell-checker
             - ms-python.python
             - DEVSENSE.phptools-vscode
-            - GitHub.copilot
-            - snyk-security.snyk-vulnerability-scanner
+            - ms-python.python
+            - rust-lang.rust-analyzer
+            - redhat.ansible
+            - vscode-icons-team.vscode-icons
 
