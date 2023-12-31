@@ -7,3 +7,7 @@
 - name: "Set ensurepath for Pipx"
   shell:
     cmd: "python3 -m pipx ensurepath"
+
+- name: Install pypykatz
+  ansible.builtin.pip:
+    name: pypykatz

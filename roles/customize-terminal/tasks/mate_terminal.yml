@@ -1,0 +1,36 @@
+---
+- name: "Copy BashRC"
+  copy:
+    src: "{{ role_path }}/files/.bashrc"
+    dest: "{{ ansible_env.HOME }}"
+
+- name: "Read current mate terminal profiles"
+  dconf:
+    key: "/org/mate/terminal/global/profile-list"
+    state: "read"
+  register: "profile_list"
+
+- name: "profile_list was not set, setting"
+  set_fact:
+    profile_list: 
+      value: '["default"]'
+  when: profile_list.value is none
+
+- name: "Adding the Rawk profile"
+  set_fact:
+    new_profile_list: "{{ profile_list.value | regex_replace(']$', \", 'rawk']\") }}"
+
+- name: "Writing updated profile list"
+  dconf:
+    key: "/org/mate/terminal/global/profile-list"
+    value: "{{ new_profile_list }}"
+  when: "'rawk' not in profile_list.value"
+  
+- name: "Restoring Video Profile from Dump"
+  shell:
+    cmd: "dconf load /org/mate/terminal/profiles/rawk/ < {{ role_path }}/files/dconf-dump-terminal"
+  when: "'video' not in profile_list.value"
+
+- name: "Setting Rawk as the default profile"
+  shell:
+    cmd: "dconf write /org/mate/terminal/global/default-profile \"'rawk'\""

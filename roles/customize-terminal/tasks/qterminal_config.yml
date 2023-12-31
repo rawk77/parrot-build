@@ -1,0 +1,11 @@
+---
+- name: "Verify qterminal folder exists"
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.config/qterminal.org/"
+    state: directory
+
+- name: "Copy qterminal config file"
+  copy:
+    src: "{{ role_path }}/files/qterminal.ini"
+    dest: "{{ ansible_env.HOME }}/.config/qterminal.org/"
+
